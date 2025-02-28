@@ -1,0 +1,95 @@
+# 🏸 Badminton Connect
+
+Badminton Connect là một nền tảng giúp kết nối người chơi cầu lông, tìm kiếm sân cầu lông gần vị trí và tìm bạn chơi cùng dựa trên trình độ và thời gian rảnh rỗi.
+
+## 🚀 Mục tiêu MVP
+
+1. **Tìm kiếm sân cầu lông:**
+   - Hiển thị các sân cầu gần vị trí người dùng thông qua Google Maps API.
+   - Cung cấp bộ lọc sân theo giá thuê, khoảng cách, tiện ích (phòng thay đồ, bãi đỗ xe, ...).
+
+2. **Tìm bạn chơi cùng:**
+   - Tìm kiếm người chơi dựa trên trình độ (Mới bắt đầu, trung bình, cao cấp, vận động viên phong trào).
+   - Lọc theo thời gian rảnh rỗi và khu vực chơi.
+   - Hệ thống chat đơn giản để trao đổi trước khi hẹn chơi.
+
+3. **Hồ sơ người dùng:**
+   - Thông tin cá nhân: Tên, ảnh đại diện, giới thiệu ngắn gọn.
+   - Trình độ chơi, lịch sử trận đấu (có thể nhập tay hoặc đồng bộ từ các giải đấu cộng đồng nếu có).
+   - Đánh giá và bình luận từ những người đã chơi cùng.
+
+4. **Tích hợp bản đồ và định vị:**
+   - Cho phép người dùng định vị vị trí hiện tại và đề xuất sân cầu gần nhất.
+
+---
+
+## 🛠 Công nghệ sử dụng
+
+### Backend:
+- **Laravel**: Framework PHP mạnh mẽ và linh hoạt để xây dựng API và quản lý dữ liệu.
+- **MySQL**: Lưu trữ dữ liệu người dùng, sân cầu, trận đấu và các hoạt động khác.
+- **Redis**: Hỗ trợ lưu trữ tạm và cache cho hệ thống chat.
+
+### Frontend:
+- **Nuxt.js**: Sử dụng cho giao diện người dùng với khả năng SEO tốt và trải nghiệm mượt mà.
+- **shadcn/ui**: Xây dựng giao diện đơn giản, dễ tùy biến và đẹp mắt.
+- **Google Maps API**: Tích hợp bản đồ và định vị vị trí.
+
+### Realtime Chat:
+- **Socket.IO**: Tạo hệ thống chat đơn giản và thời gian thực.
+
+---
+
+## 🚧 Cài đặt & Chạy dự án
+
+### Yêu cầu hệ thống:
+- **PHP >= 8.1** với **Composer**.
+- **Node.js >= 16** với **npm** hoặc **yarn**.
+- **MySQL** hoặc **MariaDB**.
+
+### Bước 1: Clone dự án
+```sh
+git clone https://github.com/yourusername/badminton-connect.git
+cd badminton-connect
+```
+
+### Bước 2: Cài đặt Backend (Laravel)
+```sh
+cd backend
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan migrate --seed
+php artisan serve
+```
+
+### Bước 3: Cài đặt Frontend (Nuxt.js)
+```sh
+cd frontend
+npm install
+npm run dev
+```
+
+### Bước 4: Truy cập ứng dụng
+- Backend: [http://localhost:8000](http://localhost:8000)
+- Frontend: [http://localhost:3000](http://localhost:3000)
+
+---
+
+## 📂 Cấu trúc thư mục
+```
+├── backend               # Thư mục Laravel
+│   ├── app               # Code ứng dụng backend
+│   ├── database          # Migration & Seeder
+│   └── routes            # Định nghĩa API
+├── frontend              # Thư mục Nuxt.js
+│   ├── components        # Các component giao diện
+│   ├── pages             # Trang web
+│   └── assets            # Hình ảnh và file tĩnh
+└── README.md             # Tài liệu dự án
+```
+
+---
+
+## 📧 Liên hệ
+Nếu có thắc mắc hoặc đóng góp, vui lòng liên hệ qua email: hi@tuanha.dev
