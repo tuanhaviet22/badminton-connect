@@ -19,32 +19,31 @@ class PlayerResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    public static function form(Forms\Form $form): Forms\Form
+    public static function form(Form $form): Form
     {
-        return $form->schema([
-            Forms\Components\TextInput::make('name')->required()->label('Player Name'),
-            Forms\Components\TextInput::make('email')->email()->required()->label('Email'),
-            Forms\Components\FileUpload::make('avatar')->image()->label('Avatar'),
-            Forms\Components\Select::make('skill_level')
-                ->options([
-                    'beginner' => 'Beginner',
-                    'intermediate' => 'Intermediate',
-                    'advanced' => 'Advanced',
-                    'pro' => 'Professional',
-                ])
-                ->required()
-                ->label('Skill Level'),
-        ]);
+        return $form
+            ->schema([
+                //
+            ]);
     }
 
-    public static function table(Tables\Table $table): Tables\Table
+    public static function table(Table $table): Table
     {
-        return $table->columns([
-            Tables\Columns\ImageColumn::make('avatar')->label('Avatar'),
-            Tables\Columns\TextColumn::make('name')->sortable()->searchable()->label('Name'),
-            Tables\Columns\TextColumn::make('email')->sortable()->searchable()->label('Email'),
-            Tables\Columns\TextColumn::make('skill_level')->label('Skill Level'),
-        ]);
+        return $table
+            ->columns([
+                //
+            ])
+            ->filters([
+                //
+            ])
+            ->actions([
+                Tables\Actions\EditAction::make(),
+            ])
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
+            ]);
     }
 
     public static function getRelations(): array
