@@ -49,8 +49,7 @@ class AdminPanelProvider extends PanelProvider
 //                        ->icon('heroicon-o-home'),
                     NavigationGroup::make("Quản trị hệ thống sân")
                         ->items([
-                            ...BranchResource::getNavigationItems(),
-                            ...CourtResource::getNavigationItems(),
+                            ...BranchResource::getNavigationItems()
                         ]),
                     NavigationGroup::make('Roles & Permissions')
                         ->items([

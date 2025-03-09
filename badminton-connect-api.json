@@ -1,0 +1,1145 @@
+{
+	"info": {
+		"_postman_id": "1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p",
+		"name": "Badminton Connect API",
+		"description": "API collection for the Badminton Connect application",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"John Doe\",\n    \"email\": \"john@example.com\",\n    \"password\": \"password\",\n    \"password_confirmation\": \"password\",\n    \"device_name\": \"iPhone 12\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"register"
+							]
+						},
+						"description": "Register a new user and return an API token"
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"john@example.com\",\n    \"password\": \"password\",\n    \"device_name\": \"iPhone 12\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						},
+						"description": "Login and return an API token"
+					},
+					"response": []
+				},
+				{
+					"name": "Current User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/user",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"user"
+							]
+						},
+						"description": "Get the currently authenticated user"
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/logout",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"logout"
+							]
+						},
+						"description": "Revoke the current API token"
+					},
+					"response": []
+				}
+			],
+			"description": "Authentication endpoints for user registration, login, and token management"
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "List Users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/users?page=1&per_page=10",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "per_page",
+									"value": "10"
+								}
+							]
+						},
+						"description": "List all users (paginated)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/users/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"1"
+							]
+						},
+						"description": "Get a specific user by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Jane Smith\",\n    \"email\": \"jane@example.com\",\n    \"password\": \"password\",\n    \"role_ids\": [2]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						},
+						"description": "Create a new user (admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Jane Smith Updated\",\n    \"email\": \"jane.updated@example.com\",\n    \"role_ids\": [2, 3]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/users/2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"2"
+							]
+						},
+						"description": "Update a user (admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/users/2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"2"
+							]
+						},
+						"description": "Delete a user (admin only)"
+					},
+					"response": []
+				}
+			],
+			"description": "User management endpoints"
+		},
+		{
+			"name": "Branches",
+			"item": [
+				{
+					"name": "List Branches",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/branches?page=1&per_page=10&latitude=10.762622&longitude=106.660172&distance=5",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"branches"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "per_page",
+									"value": "10"
+								},
+								{
+									"key": "latitude",
+									"value": "10.762622"
+								},
+								{
+									"key": "longitude",
+									"value": "106.660172"
+								},
+								{
+									"key": "distance",
+									"value": "5"
+								}
+							]
+						},
+						"description": "List all branches (paginated) with optional location filtering"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Branch",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/branches/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"branches",
+								"1"
+							]
+						},
+						"description": "Get a specific branch by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Branch",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Downtown Badminton Center\",\n    \"description\": \"Premium badminton courts in the heart of the city\",\n    \"address\": \"123 Main St\",\n    \"city\": \"Ho Chi Minh City\",\n    \"state\": \"HCMC\",\n    \"country\": \"Vietnam\",\n    \"postal_code\": \"70000\",\n    \"phone\": \"+84 28 1234 5678\",\n    \"email\": \"downtown@badminton.com\",\n    \"website\": \"https://downtown.badminton.com\",\n    \"latitude\": 10.762622,\n    \"longitude\": 106.660172,\n    \"number_of_courts\": 8,\n    \"price_per_hour\": 15.0,\n    \"open_time\": \"06:00\",\n    \"close_time\": \"22:00\",\n    \"amenities\": [\"showers\", \"lockers\", \"cafe\", \"parking\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/branches",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"branches"
+							]
+						},
+						"description": "Create a new branch (admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Branch",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Downtown Badminton Center Premium\",\n    \"price_per_hour\": 18.0,\n    \"amenities\": [\"showers\", \"lockers\", \"cafe\", \"parking\", \"pro shop\", \"coaching\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/branches/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"branches",
+								"1"
+							]
+						},
+						"description": "Update a branch (admin or manager only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Branch",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/branches/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"branches",
+								"1"
+							]
+						},
+						"description": "Delete a branch (admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Branch Bookings",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/branches/1/bookings?date=2025-03-15",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"branches",
+								"1",
+								"bookings"
+							],
+							"query": [
+								{
+									"key": "date",
+									"value": "2025-03-15"
+								}
+							]
+						},
+						"description": "Get all bookings for a specific branch (admin or manager only)"
+					},
+					"response": []
+				}
+			],
+			"description": "Branch management endpoints"
+		},
+		{
+			"name": "Courts",
+			"item": [
+				{
+					"name": "List Courts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/courts?page=1&per_page=10&branch_id=1&status=open&min_price=10&max_price=20",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"courts"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "per_page",
+									"value": "10"
+								},
+								{
+									"key": "branch_id",
+									"value": "1"
+								},
+								{
+									"key": "status",
+									"value": "open"
+								},
+								{
+									"key": "min_price",
+									"value": "10"
+								},
+								{
+									"key": "max_price",
+									"value": "20"
+								}
+							]
+						},
+						"description": "List all courts (paginated) with optional filtering"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Court",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/courts/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"courts",
+								"1"
+							]
+						},
+						"description": "Get a specific court by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Court",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Court A\",\n    \"branch_id\": 1,\n    \"price_per_hour\": 20.0,\n    \"use_branch_price\": false,\n    \"status\": \"open\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/courts",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"courts"
+							]
+						},
+						"description": "Create a new court (admin or manager only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Court",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Court A - Premium\",\n    \"price_per_hour\": 25.0,\n    \"use_branch_price\": false,\n    \"status\": \"open\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/courts/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"courts",
+								"1"
+							]
+						},
+						"description": "Update a court (admin or manager only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Court",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/courts/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"courts",
+								"1"
+							]
+						},
+						"description": "Delete a court (admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Court Bookings",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/courts/1/bookings?date=2025-03-15",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"courts",
+								"1",
+								"bookings"
+							],
+							"query": [
+								{
+									"key": "date",
+									"value": "2025-03-15"
+								}
+							]
+						},
+						"description": "Get all bookings for a specific court"
+					},
+					"response": []
+				}
+			],
+			"description": "Court management endpoints"
+		},
+		{
+			"name": "Bookings",
+			"item": [
+				{
+					"name": "List Bookings",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/bookings?page=1&per_page=10&start_date=2025-03-10&end_date=2025-03-20&status=confirmed",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"bookings"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "per_page",
+									"value": "10"
+								},
+								{
+									"key": "start_date",
+									"value": "2025-03-10"
+								},
+								{
+									"key": "end_date",
+									"value": "2025-03-20"
+								},
+								{
+									"key": "status",
+									"value": "confirmed"
+								}
+							]
+						},
+						"description": "List all bookings (paginated) with optional filtering (admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Booking",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/bookings/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"bookings",
+								"1"
+							]
+						},
+						"description": "Get a specific booking by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Booking",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"court_id\": 1,\n    \"booking_date\": \"2025-03-15\",\n    \"start_time\": \"18:00\",\n    \"end_time\": \"20:00\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/bookings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"bookings"
+							]
+						},
+						"description": "Create a new booking"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Booking Status",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": \"confirmed\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/bookings/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"bookings",
+								"1"
+							]
+						},
+						"description": "Update a booking status (admin or manager only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Booking",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/bookings/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"bookings",
+								"1"
+							]
+						},
+						"description": "Delete a booking (only if status is pending)"
+					},
+					"response": []
+				},
+				{
+					"name": "My Bookings",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/my-bookings?status=confirmed&upcoming=true",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"my-bookings"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "confirmed"
+								},
+								{
+									"key": "upcoming",
+									"value": "true"
+								}
+							]
+						},
+						"description": "Get all bookings for the authenticated user"
+					},
+					"response": []
+				}
+			],
+			"description": "Court booking endpoints"
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "YOUR_API_TOKEN",
+			"type": "string"
+		}
+	]
+}

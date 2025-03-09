@@ -55,7 +55,6 @@ cd badminton-connect
 
 ### Bước 2: Cài đặt Backend (Laravel)
 ```sh
-cd backend
 composer install
 cp .env.example .env
 php artisan key:generate
@@ -65,7 +64,6 @@ php artisan serve
 
 ### Bước 3: Cài đặt Frontend (Nuxt.js)
 ```sh
-cd frontend
 npm install
 npm run dev
 ```
@@ -76,17 +74,66 @@ npm run dev
 
 ---
 
+## 📝 API Documentation
+
+The application provides a RESTful API with the following endpoints:
+
+### Authentication
+- `POST /api/register` - Register a new user
+- `POST /api/login` - Login and get token
+- `GET /api/user` - Get authenticated user profile
+- `POST /api/logout` - Logout and invalidate token
+
+### Users
+- `GET /api/users` - List all users (admin only)
+- `GET /api/users/{id}` - Get user by ID
+- `POST /api/users` - Create a new user (admin only)
+- `PUT /api/users/{id}` - Update user details
+- `DELETE /api/users/{id}` - Delete a user
+
+### Branches
+- `GET /api/branches` - List all branches with optional location filtering
+- `GET /api/branches/{id}` - Get branch details
+- `POST /api/branches` - Create a new branch (admin only)
+- `PUT /api/branches/{id}` - Update branch details (admin/manager only)
+- `DELETE /api/branches/{id}` - Delete a branch (admin only)
+- `GET /api/branches/{id}/bookings` - List branch bookings
+
+### Courts
+- `GET /api/courts` - List all courts with optional filters
+- `GET /api/courts/{id}` - Get court details
+- `POST /api/courts` - Create a new court (admin/manager only)
+- `PUT /api/courts/{id}` - Update court details (admin/manager only)
+- `DELETE /api/courts/{id}` - Delete a court (admin only)
+- `GET /api/courts/{id}/bookings` - List court bookings
+
+### Bookings
+- `GET /api/bookings` - List all bookings (admin only)
+- `GET /api/bookings/{id}` - Get booking details
+- `POST /api/bookings` - Create a new booking
+- `PUT /api/bookings/{id}` - Update booking status (admin/manager only)
+- `DELETE /api/bookings/{id}` - Delete a booking (if pending)
+- `GET /api/my-bookings` - List authenticated user's bookings
+
+## 📬 Postman Collection
+
+A Postman collection is available for testing the API. Import the file:
+`badminton-connect-api.json`
+
+---
+
 ## 📂 Cấu trúc thư mục
 ```
-├── backend               # Thư mục Laravel
-│   ├── app               # Code ứng dụng backend
-│   ├── database          # Migration & Seeder
-│   └── routes            # Định nghĩa API
-├── frontend              # Thư mục Nuxt.js
-│   ├── components        # Các component giao diện
-│   ├── pages             # Trang web
-│   └── assets            # Hình ảnh và file tĩnh
-└── README.md             # Tài liệu dự án
+├── app                   # Core application code
+│   ├── Filament          # Admin panel resources
+│   ├── Forms             # Form components
+│   ├── Http              # Controllers and middleware
+│   ├── Models            # Database models
+│   └── Providers         # Service providers
+├── database              # Migrations & Seeders
+├── resources             # Frontend resources
+├── routes                # API and web routes
+└── README.md             # Project documentation
 ```
 
 ---

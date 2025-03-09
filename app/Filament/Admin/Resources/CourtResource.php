@@ -36,9 +36,8 @@ class CourtResource extends Resource
                     ->label('Branch'),
                 Select::make('status')
                     ->options([
-                        'open' => 'Open',
-                        'closed' => 'Closed',
-                        'under_maintenance' => 'Under Maintenance',
+                        '1' => 'Open',
+                        '2' => 'Closed'
                     ])
                     ->default('open')
                     ->required(),
@@ -52,7 +51,14 @@ class CourtResource extends Resource
             ->columns([
                 TextColumn::make('name')->searchable()->sortable(),
                 TextColumn::make('branch.name')->label('Branch')->sortable()->searchable(),
-                TextColumn::make('status')->badge()->sortable(),
+                TextColumn::make('status')
+                    ->badge()
+                    ->sortable()
+                    ->formatStateUsing(fn($state) => Court::$statusLabels[$state] ?? 'Unknown')
+                    ->colors([
+                        Court::STATUS_OPEN => 'success',  // Green for Open
+                        Court::STATUS_CLOSED => 'danger', // Red for Close
+                    ]),
                 TextColumn::make('created_at')->dateTime()->sortable(),
             ])
             ->filters([

@@ -23,6 +23,14 @@ class Court extends Model
         'facilities' => 'array',
     ];
 
+    const STATUS_OPEN = 1;
+    const STATUS_CLOSED = 2;
+
+    public static array $statusLabels = [
+        self::STATUS_OPEN => 'Open',
+        self::STATUS_CLOSED => 'Close',
+    ];
+
     public function branch()
     {
         return $this->belongsTo(Branch::class, 'branch_id');

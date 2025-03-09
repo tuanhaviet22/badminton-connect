@@ -126,4 +126,8 @@ class BranchResource extends Resource
             'edit' => Pages\EditBranch::route('/{record}/edit'),
         ];
     }
+
+    protected static ?string $navigationLabel = 'Chi nhánh';
+
+    protected static ?string $navigationBadgeTooltip = 'Chi nhánh';
 }
