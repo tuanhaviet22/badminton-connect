@@ -12,6 +12,10 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Textarea;
+use Filament\Tables\Columns\TextColumn;
 
 class CourtResource extends Resource
 {
@@ -19,26 +23,49 @@ class CourtResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    public static function form(Forms\Form $form): Forms\Form
+    public static function form(Form $form): Form
     {
-        return $form->schema([
-            Forms\Components\TextInput::make('name')->required()->label('Court Name'),
-            Forms\Components\TextInput::make('location')->required()->label('Location'),
-            Forms\Components\NumberInput::make('price_per_hour')->label('Price per Hour'),
-            Forms\Components\Toggle::make('has_parking')->label('Has Parking'),
-            Forms\Components\Toggle::make('has_locker_room')->label('Has Locker Room'),
-        ]);
+        return $form
+            ->schema([
+                TextInput::make('name')->required()->maxLength(255),
+                Select::make('branch_id')
+                    ->relationship(name: 'branch', titleAttribute: 'name')
+                    ->searchable()
+                    ->preload()
+                    ->required()
+                    ->label('Branch'),
+                Select::make('status')
+                    ->options([
+                        'open' => 'Open',
+                        'closed' => 'Closed',
+                        'under_maintenance' => 'Under Maintenance',
+                    ])
+                    ->default('open')
+                    ->required(),
+            ]);
     }
 
-    public static function table(Tables\Table $table): Tables\Table
+
+    public static function table(Table $table): Table
     {
-        return $table->columns([
-            Tables\Columns\TextColumn::make('name')->sortable()->searchable()->label('Court Name'),
-            Tables\Columns\TextColumn::make('location')->sortable()->searchable()->label('Location'),
-            Tables\Columns\TextColumn::make('price_per_hour')->label('Price per Hour'),
-            Tables\Columns\BooleanColumn::make('has_parking')->label('Parking Available'),
-            Tables\Columns\BooleanColumn::make('has_locker_room')->label('Locker Room Available'),
-        ]);
+        return $table
+            ->columns([
+                TextColumn::make('name')->searchable()->sortable(),
+                TextColumn::make('branch.name')->label('Branch')->sortable()->searchable(),
+                TextColumn::make('status')->badge()->sortable(),
+                TextColumn::make('created_at')->dateTime()->sortable(),
+            ])
+            ->filters([
+                //
+            ])
+            ->actions([
+                Tables\Actions\EditAction::make(),
+            ])
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
+            ]);
     }
 
     public static function getRelations(): array

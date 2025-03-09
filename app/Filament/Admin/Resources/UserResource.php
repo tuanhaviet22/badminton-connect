@@ -43,13 +43,13 @@ class UserResource extends Resource
 
                 TextInput::make('email')
                     ->email()
-                    ->unique('users', 'email')
-                    ->required(),
+                    ->readOnly()
+                    ->disabled(),
 
                 TextInput::make('password')
                     ->password()
                     ->required()
-                    ->dehydrateStateUsing(fn ($state) => bcrypt($state))
+                    ->dehydrateStateUsing(fn($state) => bcrypt($state))
                     ->visibleOn('create'),
 
                 TextInput::make('phone')
@@ -63,13 +63,9 @@ class UserResource extends Resource
                     ->maxLength(500),
 
                 Select::make('skill_level')
-                    ->options([
-                        'beginner' => 'Beginner',
-                        'intermediate' => 'Intermediate',
-                        'advanced' => 'Advanced',
-                        'pro' => 'Pro',
-                    ])
+                    ->options(User::SKILL_LEVELS)
                     ->required(),
+
 
                 KeyValue::make('preferred_play_time')
                     ->label('Preferred Play Time')
@@ -112,24 +108,25 @@ class UserResource extends Resource
 
                 TextColumn::make('phone'),
 
-                BadgeColumn::make('skill_level')
-                    ->enum([
-                        'beginner' => 'Beginner',
-                        'intermediate' => 'Intermediate',
-                        'advanced' => 'Advanced',
-                        'pro' => 'Pro',
-                    ])
+                TextColumn::make('skill_level')
+                    ->badge()
+                    ->formatStateUsing(function ($state) {
+                        return User::SKILL_LEVELS[$state] ?? 'Unknown';
+                    })
                     ->colors([
-                        'beginner' => 'gray',
-                        'intermediate' => 'blue',
-                        'advanced' => 'green',
-                        'pro' => 'red',
+                        User::SKILL_Y => 'gray',
+                        User::SKILL_TBY => 'blue',
+                        User::SKILL_TB => 'green',
+                        User::SKILL_TB_PLUS => 'yellow',
+                        User::SKILL_TBK => 'orange',
+                        User::SKILL_K => 'red',
                     ]),
 
                 TextColumn::make('role')
-                    ->enum([
-                        'player' => 'Player',
-                        'court_manager' => 'Court Manager',
+                    ->badge()
+                    ->colors([
+                        'player' => 'gray',
+                        'court_manager' => 'green'
                     ])
                     ->sortable(),
 
@@ -139,8 +136,8 @@ class UserResource extends Resource
 
                 TextColumn::make('created_at')
                     ->label('Created At')
+                    ->since()
                     ->sortable()
-                    ->dateTime(),
             ])
             ->filters([
                 // Example filter by skill level
